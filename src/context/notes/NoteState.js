@@ -6,11 +6,7 @@ import noteContext from "./noteContext";
 
 
 const NoteState = (props) =>{
-    // const stt = {
-    //     // "name" : "Abinash",
-    //     // "Class" : "18"
-    // }
-    // const [state,setState] = useState(stt);
+   
     const rnotes = [
         {
           "_id": "63f3b7c623bd2a7bb5f5c8b8",
@@ -29,15 +25,42 @@ const NoteState = (props) =>{
           "tag": "its ok!",
           "date": "2023-02-21T09:53:24.675Z",
           "__v": 0
+        },
+        {
+          "_id": "63f49494519b345096ae0862",
+          "user": "63f24b30dd4fe00fee7a466d",
+          "title": "123 I love to join Ithehe",
+          "description": "123 hehe how are you Ithehe",
+          "tag": "its ok!",
+          "date": "2023-02-21T09:53:24.675Z",
+          "__v": 0
+        },
+        {
+          "_id": "63f49494519b345096ae0862",
+          "user": "63f24b30dd4fe00fee7a466d",
+          "title": "123 I love to join Ithehe",
+          "description": "123 hehe how are you Ithehe",
+          "tag": "its ok!",
+          "date": "2023-02-21T09:53:24.675Z",
+          "__v": 0
+        },
+        {
+          "_id": "63f49494519b345096ae0862",
+          "user": "63f24b30dd4fe00fee7a466d",
+          "title": "123 I love to join Ithehe",
+          "description": "123 hehe how are you Ithehe",
+          "tag": "its ok!",
+          "date": "2023-02-21T09:53:24.675Z",
+          "__v": 0
         }
       ]
       
-      const [notes,setNotes] = useState(notesInitial)
+      const [notes,setNotes] = useState(rnotes)
 
 
 
     return(
-        <noteContext.Provider value={{rnotes,setNotes}}>
+        <noteContext.Provider value={{notes,setNotes}}>
             {props.children}
         </noteContext.Provider>
 
