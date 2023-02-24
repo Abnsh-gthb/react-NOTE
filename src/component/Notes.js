@@ -2,34 +2,44 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import Noteitem from './Noteitem';
 import AddNote from './AddNote';
 import noteContext from '../context/notes/noteContext';
+import {useNavigate} from 'react-router-dom';
 
 
-const Notes = () => {
+const Notes = (props) => {
     const context = useContext(noteContext);
     const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
     const { notes, getNote, edtNote } = context;
+    let navigate = useNavigate();
     useEffect(() => {
-        getNote();
+        if(localStorage.getItem('token')){
+            getNote();
+        }
+        else{
+            navigate('/login')
+        }
         // eslint-disable-next-line
     }, [])
     const updateNote = (currentNote) => {
         ref.current.click();
-        setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
+        setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
     }
     const ref = useRef(null);
+
     const refClose = useRef(null);
+
     const updateclick = (e) => {
         e.preventDefault();
         // console.log("updating note",note)
         edtNote(note.id, note.etitle, note.edescription, note.etag);
         refClose.current.click();
+        props.showAlert("Updated Succesfully!!","success");
     }
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
     }
     return (
         <>
-            <AddNote />
+            <AddNote showAlert={props.showAlert}/>
             <button type="button" ref={ref} className="btn btn-primary" style={{ display: "none" }} data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
             </button>
@@ -83,7 +93,7 @@ const Notes = () => {
                         </tr>}
                       
                         {notes.map((notes, index) => {
-                            return <Noteitem key={index} notes={notes} index={index} updateNote={updateNote} />
+                            return <Noteitem key={index} notes={notes} index={index} updateNote={updateNote} showAlert={props.showAlert} />
                         })}
 
                     </tbody>

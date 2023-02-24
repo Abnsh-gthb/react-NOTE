@@ -1,13 +1,19 @@
 import React from 'react'
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 
 
-const Navbar = () => {
+const Navbar = (props) => {
+  let navigate = useNavigate();
   let location = useLocation();
   React.useEffect(() => {
     // console.log(location.pathname);
   },[location]);
+  const logoutHandle = ()=>{
+    localStorage.removeItem('token');
+    navigate('/login');
+    props.showAlert("You are Logout successfully","success")
+  }
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
     <div className="container-fluid">
@@ -38,10 +44,10 @@ const Navbar = () => {
             <Link className="nav-link disabled">Disabled</Link>
           </li>
         </ul>
-        <form className="d-flex" role="search">
-          <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-          <button className="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        {!localStorage.getItem('token')?<form className="d-flex" role="search">
+          <Link className="btn btn-primary mx-2" to='/login' type="submit">Login</Link>
+          <Link className="btn btn-primary mx-2" to='/signup' type="submit">Signup</Link>
+        </form>:<button onClick={logoutHandle} className="btn btn-primary mx-2" to='/logout' type="submit">Logout</button>}
       </div>
     </div>
   </nav>

@@ -11,7 +11,7 @@ const Noteitem = (props) => {
             <td>{index+1}</td>
             <td>{notes.title}</td>
             <td>{notes.description}</td>
-            <td className='text-center'><i className="far fa-trash-alt mx-4" onClick={()=>{delNote(notes._id)}}/><i className="far fa-edit mx-4" onClick={()=>{updateNote(notes)}}/></td>
+            <td className='text-center'><i className="far fa-trash-alt mx-4" onClick={()=>{delNote(notes._id);props.showAlert("Deleted Succesfully!!","warning")}}/><i className="far fa-edit mx-4" onClick={()=>{updateNote(notes)}}/></td>
            </tr>
 
         </>

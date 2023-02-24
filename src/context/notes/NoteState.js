@@ -6,7 +6,7 @@ import noteContext from "./noteContext";
 
 
 const NoteState = (props) => {
-  const host = "http://localhost:5000"
+  const host = "http://localhost:5000";
   const rnotes = [];
 
   const [notes, setNotes] = useState(rnotes)
@@ -18,7 +18,7 @@ const NoteState = (props) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMjRiMzBkZDRmZTAwZmVlN2E0NjZkIn0sImlhdCI6MTY3NjkwMzQ2NH0.EjUHn7Fs_mF1-LnjHZbpXShK8YjOFVfH1ayhE-W2jFM'
+        'auth-token': localStorage.getItem('token')
       },
 
     });
@@ -35,7 +35,7 @@ const NoteState = (props) => {
 
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMjRiMzBkZDRmZTAwZmVlN2E0NjZkIn0sImlhdCI6MTY3NjkwMzQ2NH0.EjUHn7Fs_mF1-LnjHZbpXShK8YjOFVfH1ayhE-W2jFM'
+        'auth-token': localStorage.getItem('token')
       },
 
       body: JSON.stringify({ title, description, tag })
@@ -55,7 +55,7 @@ const NoteState = (props) => {
   
         headers: {
           'Content-Type': 'application/json',
-          'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMjRiMzBkZDRmZTAwZmVlN2E0NjZkIn0sImlhdCI6MTY3NjkwMzQ2NH0.EjUHn7Fs_mF1-LnjHZbpXShK8YjOFVfH1ayhE-W2jFM'
+          'auth-token': localStorage.getItem('token')
         },
   
       });
@@ -74,7 +74,7 @@ const NoteState = (props) => {
 
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMjRiMzBkZDRmZTAwZmVlN2E0NjZkIn0sImlhdCI6MTY3NjkwMzQ2NH0.EjUHn7Fs_mF1-LnjHZbpXShK8YjOFVfH1ayhE-W2jFM'
+        'auth-token': localStorage.getItem('token')
       },
 
       body: JSON.stringify({ title, description, tag })

@@ -5,6 +5,7 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 var fetchuser = require("../middleware/fetchuser");
+const { json } = require('express');
 
 
 
@@ -18,13 +19,13 @@ router.post('/creatUser', [
     body('email').isEmail(),
     body('password').isLength({ min: 5 })
 ], async (req, res) => {
-
+let success=false;
     try {
 
         //If there are error return bad request with error!!
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({success, errors: errors.array() });
         }
 
         //Check wheather the user with same email exists already
@@ -57,10 +58,11 @@ router.post('/creatUser', [
         // console.log(authToken);
 
         // res.json(user);
-        res.json({ authToken });
+        success=true;
+        res.json({ success,authToken });
 
     } catch (error) {
-        console.log(error.message);
+        // console.log(error.message);
         res.status(500).send("Server Error");
     }
 });
@@ -72,7 +74,7 @@ router.post('/login', [
     body('email').isEmail(),
     body('password', 'Password cannot be blank').exists()
 ], async (req, res) => {
-
+    let success = false;
     //ROUTE LOGIN :  If there are error return bad request with error!!
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -82,14 +84,14 @@ router.post('/login', [
     try {
         let user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ error: "Try with currect credentials" });
+            
+            return res.status(400).json({ success,error: "Try with currect credentials" });
         }
         const passwordCompare = await bcrypt.compare(password, user.password);
         if (!passwordCompare) {
-            return res.status(400).json({ error: "Try with currect credentials" });
+           
+            return res.status(400).json({success, error: "Try with currect credentials" });
         }
-
-
         const payload = {
             //Token Signature
                 user: {
@@ -97,9 +99,8 @@ router.post('/login', [
                 }
             }
              const authToken = jwt.sign(payload, JWT_SECRET);
-             res.json({ authToken });
-        
-
+             success=true;
+             res.json({success, authToken });
     }
      catch (error) {
         console.log(error.message);
