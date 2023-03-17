@@ -20,7 +20,7 @@ router.get('/fetchAllNotes', fetchuser, async (req, res) => {
 
 
 
-// Route for all The Notes using : "/api/notes/addNotes". Login required
+// Route for add The Notes using : "/api/notes/addNotes". Login required
 router.post('/addNotes', fetchuser,
     [body('title', 'Enter Valid Title!').isLength({ min: 3 }),
     body('description', 'Description Must be atleast 5 characters').isLength({ min: 5 }),
